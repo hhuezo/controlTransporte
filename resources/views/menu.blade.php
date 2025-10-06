@@ -312,7 +312,7 @@
                                         <a href="javascript:void(0)">Seguridad</a>
                                     </li>
                                     <li class="slide">
-                                        @can('read usuarios')
+                                        @can('read users')
                                             <a href="{{ url('seguridad/user') }}" id="usuarioOption"
                                                 class="side-menu__item">Usuarios</a>
                                         @endcan
@@ -322,7 +322,7 @@
                                                 class="side-menu__item">Roles</a>
                                         @endcan
 
-                                        @can('read permisos')
+                                        @can('read permissions')
                                             <a href="{{ url('seguridad/permission') }}" id="permisoOption"
                                                 class="side-menu__item">Permisos</a>
                                         @endcan
