@@ -38,6 +38,14 @@ class SistemaTransporteSeeder extends Seeder
         // Usuarios
         // -----------------------
 
+          $admin = DB::table('users')->insertGetId([
+            'name' => 'Administrador',
+            'email' => 'admin@mail.com',
+            'password' => Hash::make('12345678'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         // Motoristas
         $motorista1Id = DB::table('users')->insertGetId([
             'name' => 'Juan Pérez',
