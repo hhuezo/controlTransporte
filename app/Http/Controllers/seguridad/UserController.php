@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\seguridad;
 
 use App\Http\Controllers\Controller;
+use App\Models\Empresa;
 use App\Models\seguridad\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,14 +13,12 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $usuarios = User::get();
+        $usuarios = User::with('empresa')->get();
         $roles = Role::get();
-        return view('seguridad.usuario.index', compact('usuarios', 'roles'));
+        $empresas = Empresa::where('activo',1)->get();
+        return view('seguridad.usuario.index', compact('usuarios', 'roles','empresas'));
     }
 
     /**
@@ -124,26 +123,35 @@ class UserController extends Controller
         $validated = $request->validate(
             [
                 'name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:50',
-                'user_name' => 'required|string|max:50|unique:users,user_name,' . $id,
+                'email' => 'required|string|max:50|unique:users,email,' . $id,
                 'role_id' => 'required|exists:roles,id',
             ],
             [
-                'name.required' => 'El nombre es obligatorio.',
-                'name.string' => 'El nombre debe ser una cadena de texto.',
-                'name.max' => 'El nombre no debe superar los 255 caracteres.',
+                // Nombre
+                'name.required' => 'Debe ingresar el nombre.',
+                'name.string' => 'El nombre debe contener solo texto.',
+                'name.max' => 'El nombre no puede tener más de 255 caracteres.',
 
-                'last_name.required' => 'El apellido es obligatorio.',
-                'last_name.string' => 'El apellido debe ser una cadena de texto.',
-                'last_name.max' => 'El apellido no debe superar los 50 caracteres.',
+                // Apellido
+                'last_name.required' => 'Debe ingresar el apellido.',
+                'last_name.string' => 'El apellido debe contener solo texto.',
+                'last_name.max' => 'El apellido no puede tener más de 50 caracteres.',
 
-                'user_name.required' => 'El nombre de usuario es obligatorio.',
-                'user_name.string' => 'El nombre de usuario debe ser una cadena de texto.',
-                'user_name.max' => 'El nombre de usuario no debe superar los 50 caracteres.',
-                'user_name.unique' => 'Este nombre de usuario ya está en uso.',
+                // Nombre de usuario
+                'user_name.required' => 'Debe ingresar un nombre de usuario.',
+                'user_name.string' => 'El nombre de usuario debe contener solo texto.',
+                'user_name.max' => 'El nombre de usuario no puede tener más de 50 caracteres.',
+                'user_name.unique' => 'Este nombre de usuario ya está registrado.',
 
-                'role_id.required' => 'El rol es obligatorio.',
-                'role_id.exists' => 'El rol seleccionado no existe.',
+                // Correo electrónico
+                'email.required' => 'Debe ingresar un correo electrónico.',
+                'email.string' => 'El correo electrónico debe ser válido.',
+                'email.max' => 'El correo electrónico no puede tener más de 50 caracteres.',
+                'email.unique' => 'Este correo ya está registrado en el sistema.',
+
+                // Rol
+                'role_id.required' => 'Debe seleccionar un rol.',
+                'role_id.exists' => 'El rol seleccionado no es válido.',
             ]
         );
 
@@ -151,11 +159,9 @@ class UserController extends Controller
 
             DB::beginTransaction();
             $user = User::findOrFail($id);
+            $user->email = $validated['email'];
+            $user->empresa_id = $request->empresa_id;
             $user->name = $validated['name'];
-            $user->last_name = $validated['last_name'];
-            $user->user_name = $validated['user_name'];
-            $user->sales_percentage = $request->sales_percentage;
-            $user->collection_percentage = $request->collection_percentage;
             $user->save();
 
             // Asignar rol

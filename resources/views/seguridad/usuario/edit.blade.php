@@ -15,8 +15,8 @@
                     <div class="row gy-4">
 
                         <div class="col-12">
-                            <label class="form-label">Usuario</label>
-                            <input type="text" class="form-control" name="user_name" value="{{ $item->user_name }}"
+                            <label class="form-label">Correo</label>
+                            <input type="email" class="form-control" name="email" value="{{ $item->email }}"
                                 required>
                         </div>
                         <div class="col-12">
@@ -26,12 +26,6 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label">Apellido</label>
-                            <input type="text" class="form-control" name="last_name" value="{{ $item->last_name }}"
-                                required>
-                        </div>
-
-                        {{-- <div class="col-12">
                             <label class="form-label">Rol</label>
                             <select class="form-select" name="role_id" required>
                                 @foreach ($roles as $rol)
@@ -44,14 +38,17 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label">Comisión venta %</label>
-                            <input type="number" step="0.01" class="form-control" name="sales_percentage" value="{{ $item->sales_percentage }}">
+                            <label class="form-label">Empresa</label>
+                            <select class="form-select" name="empresa_id">
+                                <option value="">Seleccione</option>
+                                @foreach ($empresas as $empresa)
+                                    <option value="{{ $empresa->id }}"
+                                        {{ $empresa->empresa_id == $empresa->id ? 'selected' : '' }}>
+                                        {{ $empresa->nombre }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-
-                         <div class="col-12">
-                            <label class="form-label">Comisión cobro %</label>
-                            <input type="text" step="0.01"  class="form-control" name="collection_percentage" value="{{ $item->collection_percentage }}">
-                        </div> --}}
 
                     </div>
                 </div>

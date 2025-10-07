@@ -59,7 +59,7 @@
                                 <tr>
                                     <th>Correo</th>
                                     <th>Nombre</th>
-
+                                    <th>Empresa</th>
                                     <th>Rol</th>
                                     <th>Activo</th>
                                     <th>Opciones</th>
@@ -70,7 +70,7 @@
                                     <tr>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->name }}</td>
-
+                                        <td>{{ $item->empresa->name ?? '' }}</td>
                                         <td>{{ $item->getRoleNames()->implode(', ') }}</td>
                                         <td><label class="switch">
                                                 <input type="checkbox" {{ $item->active == 1 ? 'checked' : '' }}
