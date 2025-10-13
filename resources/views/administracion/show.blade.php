@@ -30,8 +30,10 @@
                         Regitro de {{ $motorista->name }}
                     </div>
                     <div class="prism-toggle">
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#modal-filtro">Agregar</button>
+                        <div class="prism-toggle">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-filtro"><i
+                                    class="bi bi-funnel-fill"></i> Filtrar</button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -120,8 +122,7 @@
                     <h6 class="modal-title" id="modalFiltroLabel">
                         <i class="bi bi-funnel-fill me-2"></i> Filtrar
                     </h6>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Cerrar"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
 
                 <form method="GET" action="{{ route('control.show', $motorista->id) }}">

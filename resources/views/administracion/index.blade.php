@@ -22,10 +22,10 @@
                     <div class="card-title">
                         Listado de motoristas
                     </div>
-                    <div class="prism-toggle">
+                    {{-- <div class="prism-toggle">
                         <button class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#modalFiltro"><i class="bi bi-funnel-fill"></i> Filtrar</button>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="card-body">
 
