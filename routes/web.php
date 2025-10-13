@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ControlViajeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\seguridad\PermissionController;
 use App\Http\Controllers\seguridad\RoleController;
@@ -20,3 +21,6 @@ Route::post('seguridad/role/update_permission', [RoleController::class, 'updateP
 Route::resource('seguridad/role', RoleController::class);
 Route::post('seguridad/user/update_password/{id}', [UserController::class, 'updatePassword']);
 Route::resource('seguridad/user', UserController::class);
+
+
+Route::resource('control', ControlViajeController::class);

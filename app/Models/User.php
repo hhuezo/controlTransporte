@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Empresa::class, 'empresa_id');
     }
+
+    public function puntos_control()
+    {
+        return $this->hasMany(PuntoControl::class, 'motorista_id');
+    }
 }
